@@ -29,3 +29,4 @@ override.tf.json
 # example: *tfplan*
 access_key.sh
 terraform.tfplan
+id_rsa
