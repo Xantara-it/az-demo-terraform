@@ -28,9 +28,8 @@ destroy:
 clean:
 	rm -f .tfplan
 
-all: init plan apply
-
 id_rsa: .tfplan
 	terraform output -raw tls_private_key > id_rsa
-	chmod 400 id_rsa
+	chmod 600 id_rsa
 
+all: init plan apply id_rsa

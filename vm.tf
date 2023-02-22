@@ -17,15 +17,16 @@ resource "tls_private_key" "private_ssh_key" {
 
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "vm" {
-  count                 = 0
+  count                 = 1
   name                  = "${var.name_prefix}-vm"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
+  tags                  = var.tags
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = "Standard_DS1_v2"
 
   os_disk {
-    name                 = "myOsDisk"
+    name                 = "${var.name_prefix}-disk"
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
   }
@@ -37,12 +38,12 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  computer_name                   = "demo"
-  admin_username                  = "azureuser"
+  computer_name                   = "${var.name_prefix}"
+  admin_username                  = "${var.name_user}"
   disable_password_authentication = true
 
   admin_ssh_key {
-    username   = "azureuser"
+    username   = "${var.name_user}"
     public_key = tls_private_key.private_ssh_key.public_key_openssh
   }
 }

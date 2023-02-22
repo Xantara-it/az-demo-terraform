@@ -2,6 +2,10 @@ output "public_ip" {
     value = azurerm_public_ip.ip.ip_address
 }
 
+output "user" {
+  value = var.name_user
+}
+
 # terraform output password
 output "password" {
   value = random_password.password.result
