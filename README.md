@@ -24,6 +24,7 @@ A web browser has been opened at https://login.microsoftonline.com/organizations
   }
 ]
 ```
+
 ## Azure account
 
 Check if the account is correct.
@@ -81,7 +82,7 @@ export ARM_ACCESS_KEY=$(az storage account keys list --resource-group ${RESOURCE
 Source the script to store the `access key`.
 
 ```console
-$ source ./access_key.sh
+source ./access_key.sh
 ```
 
 ## Terraform init

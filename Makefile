@@ -1,6 +1,5 @@
-.PHONY: init migrate plan apply destroy clean
+.PHONY: all init migrate plan apply destroy clean
 
-CERT = /etc/easy-rsa/pki/ca.crt
 RESG = xantara-it-rg
 STOR = xantaraitsz5l0cpd
 
@@ -9,6 +8,7 @@ init:
 	  -backend-config="resource_group_name=$(RESG)" \
 	  -backend-config="storage_account_name=$(STOR)" \
 	  -upgrade
+	  
 migrate:
 	terraform init \
 	  -backend-config="resource_group_name=$(RESG)" \
@@ -17,11 +17,15 @@ migrate:
 	  -migrate-state
 
 plan:
-	terraform plan -out .plan
-apply: .plan
-	terraform apply .plan
+	terraform plan -out .tfplan
+
+apply: .tfplan
+	terraform apply .tfplan
+
 destroy:
 	terraform destroy
 
 clean:
-	rm -f .plan
+	rm -f .tfplan
+
+all: init plan apply
