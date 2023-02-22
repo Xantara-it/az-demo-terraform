@@ -28,17 +28,19 @@ resource "azurerm_linux_virtual_machine" "vm" {
   network_interface_ids           = [azurerm_network_interface.nic.id]
   size                            = var.linux_vm_size
 
-  os_disk {
-    name                          = "${var.name_prefix}-disk"
-    caching                       = "ReadWrite"
-    storage_account_type          = var.linux_vm_storage_account_type
-  }
 
   source_image_reference {
     publisher                     = var.linux_vm_image_publisher
     offer                         = var.linux_vm_image_offer
     sku                           = var.linux_vm_image_sku
     version                       = "latest"
+  }
+
+  os_disk {
+    name                          = "${var.name_prefix}-disk"
+    caching                       = "ReadWrite"
+    storage_account_type          = var.linux_vm_storage_account_type
+    disk_size_gb                  = var.linux_vm_storage_size_gb
   }
 
   computer_name                   = "${var.name_vm}"
