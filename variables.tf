@@ -5,7 +5,7 @@ variable "location" {
 
 variable "name_prefix" {
   description = "Name prefix"
-  default     = "az-demo"
+  default     = "demo"
 }
 
 variable "tags" {

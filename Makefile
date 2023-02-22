@@ -8,7 +8,7 @@ init:
 	  -backend-config="resource_group_name=$(RESG)" \
 	  -backend-config="storage_account_name=$(STOR)" \
 	  -upgrade
-	  
+
 migrate:
 	terraform init \
 	  -backend-config="resource_group_name=$(RESG)" \
@@ -29,3 +29,8 @@ clean:
 	rm -f .tfplan
 
 all: init plan apply
+
+id_rsa: .tfplan
+	terraform output -raw tls_private_key > id_rsa
+	chmod 400 id_rsa
+

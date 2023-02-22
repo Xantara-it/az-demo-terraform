@@ -4,7 +4,7 @@ output "public_ip" {
 
 # terraform output password
 output "password" {
-  value = random_string.password.result
+  value = random_password.password.result
   sensitive = true
 }
 

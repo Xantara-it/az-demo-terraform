@@ -1,5 +1,5 @@
 # Generate random password
-resource "random_string" "password" {
+resource "random_password" "password" {
   length           = 16
   min_upper        = 2
   min_lower        = 2
