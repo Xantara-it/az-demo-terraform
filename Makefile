@@ -19,6 +19,10 @@ migrate:
 plan:
 	terraform plan -out .tfplan
 
+plan-cmk:
+	terraform plan -out .tfplan \
+	  -var linux_vm_image_id=/subscriptions/e66b35da-90dd-4119-847f-645ae35f58ce/resourceGroups/XANTARA-IT-RG/providers/Microsoft.Compute/images/xan-cmk-demo
+
 apply: .tfplan
 	terraform apply .tfplan
 

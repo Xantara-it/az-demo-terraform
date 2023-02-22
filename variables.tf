@@ -71,3 +71,9 @@ variable "linux_vm_image_sku" {
   description = "SKU for RHEL 8.7 Gen2"
   default     = "rhel-lvm86-gen2"
 }
+
+variable "linux_vm_image_id" {
+  type        = string
+  description = "Virtual machine custom image id"
+  default     = ""
+}

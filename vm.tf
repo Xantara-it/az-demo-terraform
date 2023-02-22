@@ -29,11 +29,15 @@ resource "azurerm_linux_virtual_machine" "vm" {
   size                            = var.linux_vm_size
 
 
-  source_image_reference {
-    publisher                     = var.linux_vm_image_publisher
-    offer                         = var.linux_vm_image_offer
-    sku                           = var.linux_vm_image_sku
-    version                       = "latest"
+  source_image_id = var.linux_vm_image_id != "" ? var.linux_vm_image_id : null
+  dynamic "source_image_reference" {
+    for_each = var.linux_vm_image_id == "" ? [1] : []
+    content {
+      publisher = var.linux_vm_image_publisher
+      offer     = var.linux_vm_image_offer
+      sku       = var.linux_vm_image_sku
+      version   = "latest"
+    }
   }
 
   os_disk {
