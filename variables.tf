@@ -36,7 +36,7 @@ variable "tags" {
 variable "linux_vm_size" {
   type        = string
   description = "Virtual machine size"
-  default     = "Standard_B1ms"
+  default     = "Standard_B2s"
 }
 
 variable "linux_vm_storage_account_type" {
