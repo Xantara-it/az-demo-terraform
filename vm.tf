@@ -62,7 +62,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 # Template for bootstrapping
 data "template_file" "linux-vm-cloud-init" {
-  template = file("azure-rhel.sh")
+  template = file("cloud-init.txt")
 }
 
 # resource "azurerm_image" "img" {

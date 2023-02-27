@@ -1,0 +1,18 @@
+#cloud-config
+disk_setup:
+  ephemeral0:
+    table_type: gpt
+    layout: [100,82]
+    overwrite: true
+fs_setup:
+  - device: ephemeral0
+    filesystem: swap
+  - device: rootvg/optlv
+    filesystem: xfs
+mounts:
+  - ["ephemeral0", "none", "swap", "sw,nofail,x-systemd.requires=cloud-init.service", "0", "0"]
+  - ["/dev/mapper/rootvg-optlv", "/opt", "xfs", "defaults", "0", "0"]
+
+runcmd:
+- cloud-init-per instance lvcreate lvcreate rootvg -n optlv -L 16g
+- cloud-init-per instance yum yum update -y
