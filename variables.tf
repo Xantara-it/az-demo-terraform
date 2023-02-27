@@ -18,6 +18,14 @@ variable "name_user" {
   default     = "xantara"
 }
 
+variable "rhsm_username" {
+  default = ""
+}
+
+variable "rhsm_password" {
+  default = ""
+}
+
 variable "tags" {
   type = map(any)
   default = {

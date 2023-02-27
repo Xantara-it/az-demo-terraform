@@ -62,7 +62,10 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 # Template for bootstrapping
 data "template_file" "linux-vm-cloud-init" {
-  template = file("cloud-init.txt")
+  template = templatefile("cloud-init.txt.tftpl", {
+    username = var.rhsm_username
+    password = var.rhsm_password
+  })
 }
 
 # resource "azurerm_image" "img" {

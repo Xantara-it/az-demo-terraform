@@ -2,7 +2,7 @@
 disk_setup:
   ephemeral0:
     table_type: gpt
-    layout: [100,82]
+    layout: [100, 82]
     overwrite: true
 fs_setup:
   - device: ephemeral0
@@ -13,6 +13,14 @@ mounts:
   - ["ephemeral0", "none", "swap", "sw,nofail,x-systemd.requires=cloud-init.service", "0", "0"]
   - ["/dev/mapper/rootvg-optlv", "/opt", "xfs", "defaults", "0", "0"]
 
+%{ if username != "" && password != ""}
+rh_subscription:
+  username: "${username}"
+  password: "${password}"
+  enable-repo: []
+  disable-repo: []
+%{ endif }
+
 runcmd:
-- cloud-init-per instance lvcreate lvcreate rootvg -n optlv -L 16g
-- cloud-init-per instance yum yum update -y
+  - cloud-init-per instance lvcreate lvcreate rootvg -n optlv -L 16g
+  - cloud-init-per instance yum yum update -y
