@@ -36,4 +36,4 @@ id_rsa: .tfplan
 	terraform output -raw tls_private_key > id_rsa
 	chmod 600 id_rsa
 
-all: init .tfplan apply id_rsa
+all: init apply id_rsa
