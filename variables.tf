@@ -47,6 +47,11 @@ variable "linux_vm_size" {
   default     = "Standard_B2s"
 }
 
+variable "linux_vm_count" {
+  type    = number
+  default = 0
+}
+
 variable "linux_vm_storage_account_type" {
   type        = string
   description = "Virtual machine storage account type"
@@ -59,29 +64,30 @@ variable "linux_vm_storage_size_gb" {
   default     = "64"
 }
 
-#
-# az vm image list --publisher RedHat --offer rhel-byos --all --out table
-#
-variable "linux_vm_image_publisher" {
-  type        = string
-  description = "Virtual machine source image publisher"
-  default     = "RedHat"
+variable "linux_vm_plan" {
+  type = object({
+    publisher = string
+    product   = string
+    name      = string
+  })
+  default = {
+    publisher = "RedHat"
+    product   = "rhel-byos"
+    name      = "rhel-lvm86-gen2"
+  }
 }
 
-variable "linux_vm_image_offer" {
-  type        = string
-  description = "Virtual machine source image offer"
-  default     = "rhel-byos"
-}
-
-variable "linux_vm_image_sku" {
-  type        = string
-  description = "SKU for RHEL 8.7 Gen2"
-  default     = "rhel-lvm86-gen2"
-}
-
-variable "linux_vm_image_id" {
-  type        = string
-  description = "Virtual machine custom image id"
-  default     = ""
+variable "linux_vm_gallery_image" {
+  type = object({
+    resource_group = string
+    gallery        = string
+    name           = string
+    version        = string
+  })
+  default = {
+    resource_group = "gallery-rg"
+    gallery        = "gallery"
+    name           = "xan-cmk-demo"
+    version        = "recent"
+  }
 }

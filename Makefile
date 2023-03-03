@@ -1,7 +1,10 @@
-.PHONY: all init migrate apply destroy clean
+.PHONY: all init migrate plan apply destroy clean
 
 RESG = xantara-it-rg
 STOR = xantaraitsz5l0cpd
+COUNT = 0
+
+all: init plan apply id_rsa
 
 init:
 	terraform init \
@@ -16,14 +19,10 @@ migrate:
 	  -upgrade \
 	  -migrate-state
 
-.tfplan: rhsm.tfvars
-	terraform plan -var-file=rhsm.tfvars -out .tfplan
+plan: rhsm.tfvars
+	terraform plan -var-file=rhsm.tfvars -var=linux_vm_count=$(COUNT) -out .tfplan
 
-plan-cmk:
-	terraform plan -out .tfplan \
-	  -var linux_vm_image_id=/subscriptions/e66b35da-90dd-4119-847f-645ae35f58ce/resourceGroups/XANTARA-IT-RG/providers/Microsoft.Compute/images/xan-cmk-demo
-
-apply: .tfplan
+apply:
 	terraform apply .tfplan
 
 destroy:
@@ -36,4 +35,3 @@ id_rsa: .tfplan
 	terraform output -raw tls_private_key > id_rsa
 	chmod 600 id_rsa
 
-all: init apply id_rsa
