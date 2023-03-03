@@ -4,7 +4,6 @@ fs_setup:
     filesystem: swap
 mounts:
   - ["ephemeral0", "none", "swap", "sw,nofail,x-systemd.requires=cloud-init.service", "0", "0"]
-  - ["/dev/rootvg/optlv", "/opt", "xfs", "defaults", "0", "0"]
 
 %{ if username != "" && password != ""}
 rh_subscription:
@@ -14,9 +13,5 @@ rh_subscription:
   disable-repo: []
 %{ endif }
 
-bootcmd:
-  - cloud-init-per once lvcreate lvcreate rootvg -n optlv -L 16g
-  - cloud-init-per once format mkfs.xfs /dev/rootvg/optlv
-  - cloud-init-per once mount mount -a
 runcmd:
   - cloud-init-per instance yum yum update -y
