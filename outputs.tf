@@ -1,5 +1,5 @@
 output "public_ip" {
-    value = azurerm_public_ip.ip.ip_address
+  value = azurerm_public_ip.ip.ip_address
 }
 
 output "user" {
@@ -8,7 +8,7 @@ output "user" {
 
 # terraform output password
 output "password" {
-  value = random_password.password.result
+  value     = random_password.password.result
   sensitive = true
 }
 

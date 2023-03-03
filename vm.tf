@@ -20,13 +20,13 @@ resource "tls_private_key" "private_ssh_key" {
 # See: https://gmusumeci.medium.com/how-to-deploy-a-red-hat-enterprise-linux-rhel-vm-in-azure-using-terraform-90f3d413c783
 #
 resource "azurerm_linux_virtual_machine" "vm" {
-  count                           = 1
-  name                            = "${var.name_prefix}-vm"
-  location                        = azurerm_resource_group.rg.location
-  resource_group_name             = azurerm_resource_group.rg.name
-  tags                            = var.tags
-  network_interface_ids           = [azurerm_network_interface.nic.id]
-  size                            = var.linux_vm_size
+  count                 = 1
+  name                  = "${var.name_prefix}-vm"
+  location              = azurerm_resource_group.rg.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  tags                  = var.tags
+  network_interface_ids = [azurerm_network_interface.nic.id]
+  size                  = var.linux_vm_size
 
 
   source_image_id = var.linux_vm_image_id != "" ? var.linux_vm_image_id : null
@@ -41,23 +41,23 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   os_disk {
-    name                          = "${var.name_prefix}-disk"
-    caching                       = "ReadWrite"
-    storage_account_type          = var.linux_vm_storage_account_type
-    disk_size_gb                  = var.linux_vm_storage_size_gb
+    name                 = "${var.name_prefix}-disk"
+    caching              = "ReadWrite"
+    storage_account_type = var.linux_vm_storage_account_type
+    disk_size_gb         = var.linux_vm_storage_size_gb
   }
 
-  computer_name                   = "${var.name_vm}"
-  admin_username                  = "${var.name_user}"
+  computer_name                   = var.name_vm
+  admin_username                  = var.name_user
   admin_password                  = random_password.password.result
   disable_password_authentication = false
 
   admin_ssh_key {
-    username                      = "${var.name_user}"
-    public_key                    = tls_private_key.private_ssh_key.public_key_openssh
+    username   = var.name_user
+    public_key = tls_private_key.private_ssh_key.public_key_openssh
   }
-  
-  custom_data                     = base64encode(data.template_file.linux-vm-cloud-init.rendered)
+
+  custom_data = base64encode(data.template_file.linux-vm-cloud-init.rendered)
 }
 
 # Template for bootstrapping
