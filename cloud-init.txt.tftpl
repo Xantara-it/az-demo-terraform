@@ -1,9 +1,13 @@
 #cloud-config
+disk_setup:
+  ephemeral0:
+    table_type: gpt
+    layout: [[100, 82]]
 fs_setup:
-  - device: ephemeral0
+  - device: ephemeral0.1
     filesystem: swap
 mounts:
-  - ["ephemeral0", "none", "swap", "sw,nofail,x-systemd.requires=cloud-init.service", "0", "0"]
+  - ["ephemeral0.1", "none", "swap", "sw,nofail,x-systemd.requires=cloud-init.service", "0", "0"]
 
 %{ if username != "" && password != ""}
 rh_subscription:

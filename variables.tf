@@ -71,7 +71,7 @@ variable "linux_vm_plan" {
     name      = string
   })
   default = {
-    publisher = "RedHat"
+    publisher = "redhat"
     product   = "rhel-byos"
     name      = "rhel-lvm86-gen2"
   }

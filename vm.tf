@@ -60,6 +60,8 @@ data "azurerm_shared_image_version" "image" {
   image_name          = var.linux_vm_gallery_image.name
   resource_group_name = var.linux_vm_gallery_image.resource_group
   gallery_name        = var.linux_vm_gallery_image.gallery
+
+  sort_versions_by_semver = true
 }
 
 # Template for bootstrapping
