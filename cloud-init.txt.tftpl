@@ -13,9 +13,10 @@ mounts:
 rh_subscription:
   username: "${username}"
   password: "${password}"
+  add-pool: [ "${pool}" ]
   enable-repo: []
   disable-repo: []
 %{ endif }
 
 runcmd:
-  - cloud-init-per instance yum yum update -y
+  - cloud-init-per instance dnf dnf update -y

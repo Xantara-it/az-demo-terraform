@@ -26,6 +26,10 @@ variable "rhsm_password" {
   default = ""
 }
 
+variable "rhsm_pool" {
+  default = ""
+}
+
 variable "tags" {
   type = map(any)
   default = {

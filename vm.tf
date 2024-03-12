@@ -69,5 +69,6 @@ data "template_file" "linux-vm-cloud-init" {
   template = templatefile("cloud-init.txt.tftpl", {
     username = var.rhsm_username
     password = var.rhsm_password
+    pool = var.rhsm_pool
   })
 }
