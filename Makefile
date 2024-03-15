@@ -34,4 +34,3 @@ clean:
 id_rsa: .tfplan
 	terraform output -raw tls_private_key > id_rsa
 	chmod 600 id_rsa
-
