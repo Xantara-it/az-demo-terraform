@@ -20,7 +20,7 @@ resource "azurerm_public_ip" "ip" {
   resource_group_name = data.azurerm_resource_group.rg.name
   allocation_method   = "Static"
   sku                 = "Standard"
-  tags                = var.tags
+  tags                = var.vm_tags
 }
 
 # Create network interface
@@ -28,7 +28,7 @@ resource "azurerm_network_interface" "nic" {
   name                = "${var.vm_prefix}-nic"
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = data.azurerm_resource_group.rg.name
-  tags                = var.tags
+  tags                = var.vm_tags
 
   ip_configuration {
     name                          = "nic-config"
@@ -56,7 +56,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = var.vm_size
   source_image_id       = var.vm_image_id
-  tags                  = var.tags
+  tags                  = var.vm_tags
 
   admin_ssh_key {
     username   = var.vm_user
@@ -92,5 +92,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   disable_password_authentication = false
 
   custom_data = var.vm_custom_data
+
+  lifecycle {
+    ignore_changes = [custom_data]
+  }
 }
 

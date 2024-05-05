@@ -78,10 +78,6 @@ variable "vm_storage_size_gb" {
   default     = "64"
 }
 
-variable "tags" {
+variable "vm_tags" {
   type = map(any)
-  default = {
-    "environment" = "demo",
-    "createdby"   = "terraform"
-  }
 }

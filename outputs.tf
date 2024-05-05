@@ -8,14 +8,14 @@ output "cmk_password" {
   sensitive = true
 }
 
-output "db_public_ip" {
-  value = module.vm_rhel.public_ip
-}
+# output "db_public_ip" {
+#   value = module.vm_rhel.public_ip
+# }
 
-output "db_password" {
-  value     = module.vm_rhel.password
-  sensitive = true
-}
+# output "db_password" {
+#   value     = module.vm_rhel.password
+#   sensitive = true
+# }
 
 # terraform output -raw tls_private_key > id_rsa
 # chmod 400 id_rsa
