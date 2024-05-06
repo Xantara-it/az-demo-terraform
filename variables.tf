@@ -30,21 +30,6 @@ variable "linux_vm_count" {
   default = 0
 }
 
-variable "linux_vm_gallery_image" {
-  type = object({
-    resource_group = string
-    gallery        = string
-    name           = string
-    version        = string
-  })
-  default = {
-    resource_group = "gallery-rg"
-    gallery        = "gallery"
-    name           = "xan-cmk-demo"
-    version        = "recent"
-  }
-}
-
 variable "tags" {
   type = map(any)
   default = {

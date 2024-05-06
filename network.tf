@@ -39,36 +39,26 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   security_rule {
-    name                   = "HTTP"
-    priority               = 1001
-    direction              = "Inbound"
-    access                 = "Allow"
-    protocol               = "Tcp"
-    source_port_range      = "*"
-    destination_port_range = "80"
-    source_address_prefixes = [
-      "83.83.20.30",
-      "87.247.91.93",
-      "95.128.91.242",
-      "217.100.42.38",
-    ]
+    name                       = "HTTP"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "Internet"
     destination_address_prefix = "*"
   }
 
   security_rule {
-    name                   = "HTTPS"
-    priority               = 1002
-    direction              = "Inbound"
-    access                 = "Allow"
-    protocol               = "Tcp"
-    source_port_range      = "*"
-    destination_port_range = "443"
-    source_address_prefixes = [
-      "83.83.20.30",
-      "87.247.91.93",
-      "95.128.91.242",
-      "217.100.42.38",
-    ]
+    name                       = "HTTPS"
+    priority                   = 1002
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = "Internet"
     destination_address_prefix = "*"
   }
 }
