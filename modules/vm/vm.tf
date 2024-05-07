@@ -55,7 +55,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   resource_group_name   = data.azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.nic.id]
   size                  = var.vm_size
-  source_image_id       = var.vm_image_id
   tags                  = var.vm_tags
 
   admin_ssh_key {
@@ -76,14 +75,11 @@ resource "azurerm_linux_virtual_machine" "vm" {
     name      = var.vm_plan.name
   }
 
-  dynamic "source_image_reference" {
-    for_each = var.vm_image_id == null ? [1] : []
-    content {
-      publisher = var.vm_image_info.publisher
-      offer     = var.vm_image_info.offer
-      sku       = var.vm_image_info.sku
-      version   = var.vm_image_info.version
-    }
+  source_image_reference {
+    publisher = var.vm_image_info.publisher
+    offer     = var.vm_image_info.offer
+    sku       = var.vm_image_info.sku
+    version   = var.vm_image_info.version
   }
 
   computer_name                   = var.vm_name

@@ -3,6 +3,15 @@ variable "location" {
   default     = "westeurope"
 }
 
+variable "whitelist_ips" {
+  default = [
+    "83.83.20.30",
+    "87.247.91.93",
+    "95.128.91.242",
+    "217.100.42.38",
+  ]
+}
+
 variable "name_prefix" {
   description = "Name prefix"
   default     = "demo"

@@ -63,26 +63,3 @@ module "vm_cmk" {
     azurerm_resource_group.rg
   ]
 }
-
-# module "vm_rhel" {
-#   source = "./modules/vm"
-
-#   vm_count      = 1
-#   vm_name       = "db-demo"
-#   vm_prefix     = "db_demo"
-#   vm_pubkey     = tls_private_key.private_ssh_key.public_key_openssh
-#   vm_image_info = data.azurerm_platform_image.rhel
-#   vm_plan = {
-#     publisher = "redhat"
-#     product   = "rhel-byos"
-#     name      = "rhel-lvm93-gen2"
-#   }
-
-#   vm_rg_id     = azurerm_resource_group.rg.name
-#   vm_subnet_id = azurerm_subnet.snet.id
-#   vm_sg_id     = azurerm_network_security_group.nsg.id
-
-#   vm_custom_data = base64encode(data.template_file.linux-vm-cloud-init.rendered)
-
-#   vm_tags = var.tags
-# }

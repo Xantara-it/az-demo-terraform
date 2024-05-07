@@ -26,11 +26,6 @@ variable "vm_custom_data" {
   default = ""
 }
 
-variable "vm_image_id" {
-  type    = string
-  default = null
-}
-
 variable "vm_image_info" {
   type    = any
   default = null
