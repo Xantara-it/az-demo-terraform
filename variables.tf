@@ -5,10 +5,11 @@ variable "location" {
 
 variable "whitelist_ips" {
   default = [
-    "83.83.20.30",
+    "83.83.20.30",    # gerlof
     "87.247.91.93",
     "95.128.91.242",
-    "217.100.42.38",
+    "104.40.150.102", # caner
+    "217.100.42.38",  # xantara
   ]
 }
 
