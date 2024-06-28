@@ -68,16 +68,4 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefixes    = var.whitelist_ips
     destination_address_prefix = "*"
   }
-
-  security_rule {
-    name                       = "OVPN"
-    priority                   = 1004
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Udp"
-    source_port_range          = "*"
-    destination_port_range     = "1194"
-    source_address_prefixes    = var.whitelist_ips
-    destination_address_prefix = "*"
-  }
 }
