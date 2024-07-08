@@ -1,19 +1,16 @@
+# main.tf
+# - modules/vm
+# network.tf
 #
+# provider.tf
+# outputs.tf
+# variables.tf
+
 # Create a resource group
-#
 resource "azurerm_resource_group" "rg" {
   location = var.location
   name     = "${var.name_prefix}-rg"
   tags     = var.tags
-}
-
-# Template for bootstrapping
-data "template_file" "linux-vm-cloud-init" {
-  template = templatefile("cloud-init.txt.tftpl", {
-    username = var.rhsm_username
-    password = var.rhsm_password
-    pool     = var.rhsm_pool
-  })
 }
 
 resource "azurerm_marketplace_agreement" "rhel_93" {
@@ -29,6 +26,15 @@ data "azurerm_platform_image" "rhel" {
   sku       = "rhel-lvm93-gen2"
 }
 
+# Template for bootstrapping
+data "template_file" "linux-vm-cloud-init" {
+  template = templatefile("cloud-init.txt.tftpl", {
+    username = var.rhsm_username
+    password = var.rhsm_password
+    pool     = var.rhsm_pool
+  })
+}
+
 # Create (and display) an SSH key
 resource "tls_private_key" "private_ssh_key" {
   algorithm = "RSA"
@@ -38,9 +44,8 @@ resource "tls_private_key" "private_ssh_key" {
 module "vm_cmk" {
   source = "./modules/vm"
 
-  vm_count      = 1
   vm_name       = "demo"
-  vm_prefix     = "demo"
+  vm_prefix     = var.name_prefix
   vm_pubkey     = tls_private_key.private_ssh_key.public_key_openssh
   vm_image_info = data.azurerm_platform_image.rhel
   vm_plan = {
@@ -50,14 +55,13 @@ module "vm_cmk" {
   }
 
   vm_rg_id     = azurerm_resource_group.rg.name
-  vm_subnet_id = azurerm_subnet.snet.id
   vm_sg_id     = azurerm_network_security_group.nsg.id
-
-  vm_custom_data = base64encode(data.template_file.linux-vm-cloud-init.rendered)
-
+  vm_subnet_id = azurerm_subnet.snet.id
   vm_tags = merge(var.tags, {
     role = "cmk-server"
   })
+
+  vm_custom_data = base64encode(data.template_file.linux-vm-cloud-init.rendered)
 
   depends_on = [
     azurerm_resource_group.rg

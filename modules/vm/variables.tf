@@ -6,11 +6,6 @@ variable "vm_prefix" {
   description = "Name prefix"
 }
 
-variable "vm_count" {
-  type    = number
-  default = 0
-}
-
 variable "vm_user" {
   description = "Name admin user"
   default     = "xantara"

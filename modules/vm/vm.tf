@@ -49,7 +49,6 @@ resource "azurerm_network_interface_security_group_association" "nic-nsg" {
 # See: https://gmusumeci.medium.com/how-to-deploy-a-red-hat-enterprise-linux-rhel-vm-in-azure-using-terraform-90f3d413c783
 #
 resource "azurerm_linux_virtual_machine" "vm" {
-  count                 = var.vm_count
   name                  = "${var.vm_prefix}-vm"
   location              = data.azurerm_resource_group.rg.location
   resource_group_name   = data.azurerm_resource_group.rg.name

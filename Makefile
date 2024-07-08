@@ -2,7 +2,6 @@
 
 RESG = xantara-it-rg
 STOR = xantaraitsz5l0cpd
-COUNT = 0
 
 all: init plan apply id_rsa
 
@@ -20,7 +19,7 @@ migrate:
 	  -migrate-state
 
 plan: rhsm.tfvars
-	terraform plan -var-file=rhsm.tfvars -var=linux_vm_count=$(COUNT) -out .tfplan
+	terraform plan -var-file=rhsm.tfvars -out .tfplan
 
 apply:
 	terraform apply .tfplan
